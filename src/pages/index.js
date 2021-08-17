@@ -1,12 +1,14 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 const IndexPage = ({ data }) => {
   const { nodes } = data.allMarkdownRemark;
+
+  console.log('nodes >>', nodes)
 
   return (
     <Layout>
@@ -24,8 +26,19 @@ const IndexPage = ({ data }) => {
       />
       <div>
         {nodes.map((post) => {
-          const { category, title, url } = post.frontmatter
-          return <Link key={post.id} to={`/${category}/${url}`}>{title}</Link>
+
+          console.log('post >>', post)
+          const { category, title, url, image } = post.frontmatter
+          console.log('image >>', image)
+          const img = getImage(image)
+          console.log('img >>', img)
+
+          return (
+              <div key={post.id}>
+                <GatsbyImage alt={title} image={img} />
+                <Link to={`/${category}/${url}`}>{title}</Link>
+              </div>
+            )
         })}
       </div>
     </Layout>
@@ -41,6 +54,11 @@ export const query = graphql`
           url
           title
           category
+          image {
+            childImageSharp {
+             gatsbyImageData(width: 200, formats: [AUTO, AVIF], placeholder: BLURRED)
+           }
+         }
         }
         id
       }

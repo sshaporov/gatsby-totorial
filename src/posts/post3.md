@@ -2,6 +2,7 @@
 title: Greek salad
 category: italy
 url: greek-salad
+image: ../images/gatsby-astronaut.png
 ---
 
 # Greek Salad

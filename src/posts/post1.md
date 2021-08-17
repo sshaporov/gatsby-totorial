@@ -2,6 +2,7 @@
 title: Travel to Rome
 category: italy
 url: italy-trip
+image: ../images/gatsby-astronaut.png
 ---
 
 # Travel to Rome
